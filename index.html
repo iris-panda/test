@@ -12,13 +12,23 @@
 <body>
     <header>
         <nav>
-            <div class="logo">Personal Homepage</div>
+            <button class="menu-button">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="logo">Rentang Liu</div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
+
+    <div class="sidebar">
+        <ul class="sidebar-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
 
     <main>
         <section id="home" class="hero">
@@ -32,24 +42,37 @@
             </div>
         </section>
 
+        <!-- 页面链接区域 -->
         <section class="page-links">
+            <!-- 学术页面链接 -->
             <a href="academic.html" class="page-link">
                 <i class="fas fa-graduation-cap"></i>
                 <h3>Academic</h3>
                 <p>Explore my research and academic work</p>
             </a>
 
+            <!-- 游戏页面链接 -->
             <a href="gaming.html" class="page-link">
                 <i class="fas fa-gamepad"></i>
                 <h3>Gaming</h3>
                 <p>Check out my gaming experiences</p>
             </a>
 
+            <!-- 运动页面链接 -->
             <a href="sports.html" class="page-link">
                 <i class="fas fa-running"></i>
                 <h3>Sports</h3>
                 <p>Discover my sports activities</p>
             </a>
+
+            <!-- 添加新页面的示例 -->
+            <!-- 
+            <a href="new-page.html" class="page-link">
+                <i class="fas fa-[icon-name]"></i>
+                <h3>New Page</h3>
+                <p>Description of the new page</p>
+            </a>
+            -->
         </section>
 
         <section id="contact" class="contact">
@@ -66,5 +89,40 @@
     <footer>
         <p>&copy; 2024 [Your Name]. All rights reserved.</p>
     </footer>
+
+    <script>
+        // 导航栏滚动效果
+        let lastScrollTop = 0;
+        const header = document.querySelector('header');
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop) {
+                // 向下滚动
+                header.classList.add('hide');
+            } else {
+                // 向上滚动
+                header.classList.remove('hide');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
+        // 侧边栏切换
+        const menuButton = document.querySelector('.menu-button');
+        const sidebar = document.querySelector('.sidebar');
+
+        menuButton.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+
+        // 点击侧边栏外部关闭侧边栏
+        document.addEventListener('click', (e) => {
+            if (!sidebar.contains(e.target) && !menuButton.contains(e.target)) {
+                sidebar.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html> 

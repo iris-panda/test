@@ -5,6 +5,7 @@
     --text-color: #333;
     --background-color: #fff;
     --border-color: #e0e0e0;
+    --nav-height: 60px;
 }
 
 * {
@@ -18,6 +19,7 @@ body {
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--background-color);
+    padding-top: var(--nav-height);
 }
 
 h1, h2, h3 {
@@ -43,15 +45,21 @@ header {
     width: 100%;
     top: 0;
     z-index: 1000;
+    height: var(--nav-height);
+    transition: transform 0.3s ease;
+}
+
+header.hide {
+    transform: translateY(-100%);
 }
 
 nav {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 0.5rem 2rem;
+    padding: 0 2rem;
     max-width: 1200px;
     margin: 0 auto;
+    height: 100%;
 }
 
 .logo {
@@ -59,30 +67,85 @@ nav {
     font-size: 1.2rem;
     font-weight: bold;
     color: var(--primary-color);
+    margin-right: 2rem;
+    white-space: nowrap;
 }
 
 .nav-links {
     display: flex;
     list-style: none;
-    gap: 1.5rem;
+    gap: 2rem;
+    align-items: center;
 }
 
 .nav-links a {
     color: var(--text-color);
     font-size: 0.9rem;
+    white-space: nowrap;
 }
 
 .nav-links a:hover {
     color: var(--accent-color);
 }
 
+/* 侧边栏按钮样式 */
+.menu-button {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    margin-right: 1rem;
+}
+
+.menu-button i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+/* 侧边栏样式 */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100vh;
+    background-color: var(--background-color);
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    transition: left 0.3s ease;
+    z-index: 1001;
+    padding-top: var(--nav-height);
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.sidebar-links {
+    list-style: none;
+    padding: 1rem;
+}
+
+.sidebar-links li {
+    margin-bottom: 1rem;
+}
+
+.sidebar-links a {
+    display: block;
+    padding: 0.5rem;
+    color: var(--text-color);
+}
+
+.sidebar-links a:hover {
+    color: var(--accent-color);
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
 /* 主要内容区域 */
 main {
-    margin-top: 60px;
     padding: 2rem;
     max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
 }
 
 /* 英雄区域 */
@@ -153,6 +216,10 @@ main {
     margin-bottom: 0.5rem;
 }
 
+.page-link p {
+    color: var(--text-color);
+}
+
 /* 联系方式区域 */
 .contact {
     text-align: center;
@@ -199,22 +266,46 @@ footer {
 
 /* 响应式设计 */
 @media (max-width: 768px) {
-    nav {
-        flex-direction: column;
-        gap: 0.5rem;
+    .menu-button {
+        display: block;
     }
 
     .nav-links {
-        flex-direction: column;
-        text-align: center;
-        gap: 0.5rem;
+        display: none;
     }
 
-    .page-links {
-        grid-template-columns: 1fr;
+    .logo {
+        margin-left: 3rem;
     }
 
-    .social-links {
-        flex-wrap: wrap;
+    .sidebar.active + main {
+        margin-left: 250px;
     }
+}
+
+/* 页面缩放响应 */
+@media (min-width: 769px) and (max-width: 1200px) {
+    .nav-links {
+        gap: 1rem;
+    }
+}
+
+/* 高缩放比例响应 */
+@media screen and (min-width: 769px) and (min-device-pixel-ratio: 1.75) {
+    .menu-button {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .logo {
+        margin-left: 3rem;
+    }
+
+    .sidebar.active + main {
+        margin-left: 250px;
+    }
+} 
 } 
